@@ -1,3 +1,4 @@
+APP Link - https://airbnbbamd-zhgxzpuwsytbgc2ueafw6p.streamlit.app/
 # 🏡 Airbnb Demand & Listing Predictor — Streamlit App
 
 This repository contains a Streamlit app with **two preloaded ML models** and a compact **EDA** workflow:
