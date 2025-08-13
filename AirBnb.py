@@ -351,13 +351,13 @@ with st.form("single_form_app1"):
             city = st.text_input("city", value=str(row_prefill1["city"]) if isinstance(row_prefill1["city"], str) else "", placeholder="e.g., Mumbai")
     submitted_app1 = st.form_submit_button("Predict")
 
-def predict_and_show(model, task, X, label="Prediction"):
+def predict_and_show(model, task, X, label="Prediction", P=1):
     with st.spinner("Predicting..."):
         try:
             y_pred = model.predict(X)
             st.success("Prediction complete.")
             # NOTE: preserving your *21 scaling from previous code
-            st.metric(label, str(y_pred[0] * 21))
+            st.metric(label, str(y_pred[0] * P))
             est = get_final_estimator(model)
             if task == "classification" and hasattr(est, "predict_proba"):
                 probs = est.predict_proba(X)
@@ -377,7 +377,7 @@ if submitted_app1:
         "city": city if isinstance(city, str) else str(city),
     }
     X1 = build_X_generic(features1, FIXED_FEATURES, row1)
-    predict_and_show(model1, task1, X1, label="Model 1 Prediction")
+    predict_and_show(model1, task1, X1, label="Model 1 Prediction",P=21)
 
 st.divider()
 
@@ -443,7 +443,7 @@ else:
         features2 = infer_feature_names(demand_model)  # re-check in case
         task2, _ = detect_task(demand_model)
         X2 = build_X_generic(features2, DEMAND_FEATURES, row2)
-        predict_and_show(demand_model, task2, X2, label="Demand Prediction")
+        predict_and_show(demand_model, task2, X2, label="Demand Prediction",P=1)
 
 st.divider()
 st.caption(
