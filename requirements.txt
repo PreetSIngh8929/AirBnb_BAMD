@@ -7,3 +7,4 @@ altair
 plotly
 scikit_learn
 streamlit
+xgboost
